@@ -503,6 +503,19 @@ server.get("/zqselect", (req, res) => {
     }
   );
 });
+
+server.put('/updatesend', (req, res) => {
+  console.log(req.body);
+  pool.query("select toudi from myemp where id=?", [req.body.id], (err, result) => {
+    if (err) throw err;
+    console.log(result);
+  })
+  // if(result==0){
+  //   let arr=[]
+  //   arr=arr.push(req.body.uid)
+  // }
+  // console.log(arr);
+})
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {
   console.log("server is running...");
