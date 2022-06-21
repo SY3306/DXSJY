@@ -504,17 +504,48 @@ server.get("/zqselect", (req, res) => {
   );
 });
 
+//修改用户投递接口
 server.put('/updatesend', (req, res) => {
   console.log(req.body);
-  pool.query("select toudi from myemp where id=?", [req.body.id], (err, result) => {
+  pool.query("select toudi from myemp where id=?", [req.body.uid], (err, result) => {
     if (err) throw err;
-    console.log(result);
+    // console.log(result[0].toudi);
+    if (result[0].toudi == 0) {
+      let arr = []
+      arr.push(req.body.cid)
+      // console.log(arr);
+      let str = arr.toString()
+      pool.query("update myemp set toudi=? where id=?", [str, req.body.uid], (err, result) => {
+        if (err) throw err;
+        res.send({ code: 200, msg: "ok" })
+      })
+    } else {
+      let arr = result[0].toudi.split(',')
+      arr.push(req.body.cid)
+      let str = arr.toString()
+      pool.query("update myemp set toudi=? where id=?", [str, req.body.uid], (err, result) => {
+        if (err) throw err;
+        res.send({ code: 200, msg: "ok" })
+      })
+    }
   })
-  // if(result==0){
-  //   let arr=[]
-  //   arr=arr.push(req.body.uid)
-  // }
-  // console.log(arr);
+})
+//投递列表接口
+server.get('/sendlist', (req, res) => {
+  pool.query('select toudi from myemp where id=?', [req.query.uid], (err, result) => {
+    if (err) throw err;
+    let arr = result[0].toudi.split(',')
+    console.log(arr)
+    let list = []
+    for (key in arr) {
+      pool.query(`select * from myindex where id=${arr[key]}`, (err, result) => {
+        if (err) throw err;
+        list.push(result[0])
+        // console.log(result[0])
+      })
+    }
+    console.log(list)
+  })
 })
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {

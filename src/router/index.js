@@ -6,6 +6,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/empsend',
+    name: 'empsend',
+    component: () => import('../views/emp/EmpSend.vue'),
+  },
+  {
     path: "/empzqinsert/:name",
     props: true,
     name: "empzqinsert",

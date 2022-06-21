@@ -98,7 +98,7 @@
       <br />
       <!-- 投递 -->
       <div>
-        <button class="indexbtn">立即投递</button>
+        <button class="indexbtn" @click="send">立即投递</button>
       </div>
     </div>
   </div>
@@ -145,6 +145,14 @@ export default {
       });
   },
   methods: {
+    send(){
+      let cid=this.id
+      let uid=this.$store.state.id
+      let params=`cid=${cid}&uid=${uid}`
+      this.axios.put('/updatesend',params).then(res=>{
+        console.log(res)
+      })
+    },
     onClickLeft() {
       this.$router.go(-1);
     },
