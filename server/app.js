@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 // 加载MD5模块
 const md5 = require("md5");
 
+const async=require('async')
+
 // 创建MySQL连接池
 const pool = mysql.createPool({
   host: "127.0.0.1", //MySQL服务器地址
@@ -535,16 +537,16 @@ server.get('/sendlist', (req, res) => {
   pool.query('select toudi from myemp where id=?', [req.query.uid], (err, result) => {
     if (err) throw err;
     let arr = result[0].toudi.split(',')
-    console.log(arr)
-    let list = []
-    for (key in arr) {
-      pool.query(`select * from myindex where id=${arr[key]}`, (err, result) => {
-        if (err) throw err;
-        list.push(result[0])
-        // console.log(result[0])
+    // console.log(arr)
+    async.map(arr,function(item,callback){
+      let sql=`select * from myindex where id=${item}`
+      pool.query(sql,function(err,i){
+        callback(null,i[0])
       })
-    }
-    console.log(list)
+    },function(err,result){
+      res.send({code:200,msg:"ok",result})
+    })
+
   })
 })
 // 指定服务器对象监听的端口号
