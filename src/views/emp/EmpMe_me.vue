@@ -59,6 +59,10 @@
     <van-cell title="浙江师范大学高级保安二级" is-link size="large" />
     <van-cell title="浙江师范大学特技保安一级" is-link size="large" />
 </div>
+<div class="bj">
+ <button class="btnbj" @click="$router.push('/empbj')">编辑</button>
+</div>
+
 <div style="height:60px;"></div>
     </div>
 </template>
@@ -78,15 +82,23 @@ import { mapState } from 'vuex';
 </script>
 
 <style  scoped>
+.bj{
+    display: flex;
+    justify-content: flex-end;
+}
+.btnbj{
+    display: inline-block;
+    width: 25%;
+}
 .mename_2>img{
     border-radius: 50%;
 }
 *{
     margin: 0;padding: 0;
 }
-.bgc {
+/* .bgc {
  background-color: rgba(220, 237, 209, 0.719);
-}
+} */
 .onetitle{
 margin:0 25px 15px  15px;
 
@@ -98,14 +110,15 @@ margin:0 25px 15px  15px;
         margin: 0 15px;
         
     }
-    .mint-header{
+    /* .mint-header{
         background-color: rgb(99, 117, 105);
     }
     .van-cell__title,.van-icon-plus,.van-cell--clickable{
         background-color: rgba(220, 237, 209, 0.719);
-    }
+    } */
     .mename_2{
-height:70px;width:70px;
+     height:70px;
+     width:70px;
     }
      .mename_2 img{
         width: 100%;

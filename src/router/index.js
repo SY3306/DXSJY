@@ -9,6 +9,9 @@ const routes = [
     path: '/empsend',
     name: 'empsend',
     component: () => import('../views/emp/EmpSend.vue'),
+    path: '/empbj',
+    name: 'empbj',
+    component: () => import('../views/emp/EmpMebj.vue'),
   },
   {
     path: "/empzqinsert/:name",
