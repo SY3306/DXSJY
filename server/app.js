@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 // 加载MD5模块
 const md5 = require("md5");
 
-const async=require('async')
+const async = require('async')
 
 // 创建MySQL连接池
 const pool = mysql.createPool({
@@ -505,7 +505,28 @@ server.get("/zqselect", (req, res) => {
     }
   );
 });
-
+//检查cid是否重复
+server.get('/idexists', (req, res, next) => {
+  pool.query("select toudi from myemp where id=?", [req.query.uid], (err, result) => {
+    if (err) {
+      next(err)
+      return
+    };
+    let arr = result[0].toudi.split(',')
+    if (arr.indexOf(req.query.cid) == "-1") {
+      res.send({ code: 200, msg: "cid is not exist" })
+    } else {
+      res.send({ code: 500, msg: "cid is exist" })
+    }
+    // arr.forEach(item => {
+    //   if (item == req.query.cid) {
+    //     res.send({ code: 500, msg: "cid is exist" })
+    //   } else {
+    //     res.send({ code: 200, msg: "cid is not exist" })
+    //   }
+    // })
+  })
+})
 //修改用户投递接口
 server.put('/updatesend', (req, res) => {
   console.log(req.body);
@@ -538,17 +559,24 @@ server.get('/sendlist', (req, res) => {
     if (err) throw err;
     let arr = result[0].toudi.split(',')
     // console.log(arr)
-    async.map(arr,function(item,callback){
-      let sql=`select * from myindex where id=${item}`
-      pool.query(sql,function(err,i){
-        callback(null,i[0])
+    async.map(arr, function (item, callback) {
+      let sql = `select * from myindex where id=${item}`
+      pool.query(sql, function (err, i) {
+        callback(null, i[0])
       })
-    },function(err,result){
-      res.send({code:200,msg:"ok",result})
+    }, function (err, result) {
+      res.send({ code: 200, msg: "ok", result })
     })
 
   })
 })
+//错误处理中间件
+server.use((err, req, res, next) => {
+  if (err) {
+    console.log(err);
+  }
+  res.send({ code: 502, msg: '服务器端错误' })
+});
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {
   console.log("server is running...");
