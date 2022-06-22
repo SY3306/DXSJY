@@ -60,7 +60,11 @@
     <van-cell title="浙江师范大学特技保安一级" is-link size="large" />
 </div>
 <div class="bj">
- <button class="btnbj" @click="$router.push('/empbj')">编辑</button>
+ <!-- <button class="btnbj" @click="$router.push('/empbj')">编辑</button> -->
+ <van-button type="primary" icon="https://img01.yzcdn.cn/vant/user-active.png" color="rgb(92, 96, 100)" size="large" class="btnbj" @click="$router.push('/empbj')">编辑个人简历</van-button>
+
+
+ 
 </div>
 
 <div style="height:60px;"></div>
@@ -84,11 +88,14 @@ import { mapState } from 'vuex';
 <style  scoped>
 .bj{
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+   /* color: rgb(92, 96, 100); */
+
 }
 .btnbj{
     display: inline-block;
-    width: 25%;
+    width: 90%;
+
 }
 .mename_2>img{
     border-radius: 50%;

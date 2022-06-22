@@ -1,13 +1,30 @@
 <template>
   <div>
-    <van-picker
+    <!-- <van-picker
       title="选择心仪的岗位"
       show-toolbar
       :columns="columns"
       @confirm="onConfirm"
       @cancel="onCancel"
       @change="onChange"
-    />
+    /> -->
+    <van-field
+  readonly
+  clickable
+  label="职位"
+  :value="value"
+  placeholder="选择职位"
+  @click="showPicker = true"
+
+/>
+<van-popup v-model="showPicker" round position="bottom">
+  <van-picker
+    show-toolbar
+    :columns="columns"
+    @cancel="showPicker = false"
+    @confirm="onConfirm"
+  />
+</van-popup>
     <van-cell-group>
       <van-field
         v-model="price"
@@ -46,38 +63,47 @@
 <script>
 import { Toast } from 'vant';
 import { Picker } from 'vant';
+import { ref } from 'vue';
 export default {
   data() {
     return {
       columns: [
         "WEB前端开发工程师",
-        "UI设计",
         "后端开发工程师",
         "运维工程师",
         "测试",
+        "UI设计",
         "项目经理",
       ],
+      value:"",
+      showPicker: false,
       zhiwei:'',
       price:'',
       gzjl:'',
       gw:'',
       student:'',
       zs:'',
-      disirbe:''
+      disirbe:'',
     };
   },
+  
   methods: {
-    onConfirm(value, index) {
-      Toast(`您心仪的职位：${value}, 当前索引：${index}`);
-        this.zhiwei=value
+    
+ onConfirm(value) {
+      this.value = value;
+      this.showPicker = false;
     },
-    onChange(picker, value, index) {
-      Toast(`您心仪的职位：${value}, 当前索引：${index}`);
-        this.zhiwei=value
-    },
-    onCancel() {
-      Toast("取消");
-    },
+    // onConfirm(value, index) {
+    //   Toast(`您心仪的职位：${value}, 当前索引：${index}`);
+    //     this.zhiwei=value
+    // },
+    // onChange(picker, value, index) {
+    //   Toast(`您心仪的职位：${value}, 当前索引：${index}`);
+    //     this.zhiwei=value
+    // },
+    // onCancel() {
+    //   Toast("取消");
+    // },
   },
 
 };
