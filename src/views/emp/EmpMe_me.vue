@@ -107,7 +107,7 @@ import { mapState } from 'vuex';
  background-color: rgba(220, 237, 209, 0.719);
 } */
 .onetitle{
-margin:0 25px 15px  15px;
+margin:0 15px 15px  15px;
 
 }
  .mename{
