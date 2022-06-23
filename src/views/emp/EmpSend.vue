@@ -9,11 +9,7 @@
     <van-icon name="search" size="18" />
   </template> -->
     </van-nav-bar>
-
-    <div v-if="!data"><span>还没有投递简历哦！快去寻找心仪的工作吧</span></div>
-    <div v-else>
       <sendindex v-for="jl in data" :item="jl" :key="jl.id" />
-    </div>
   </div>
 </template>
 
