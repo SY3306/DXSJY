@@ -6,6 +6,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/ceshi',
+    name: 'ceshi',
+    component: () => import('../views/emp/ceshi.vue'),
+  },
+  {
     path: '/empsend',
     name: 'empsend',
     component: () => import('../views/emp/EmpSend.vue'),

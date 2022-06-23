@@ -18,7 +18,7 @@
             {{gz.content}}
           </div>
           <button class="card-button">评论</button>
-          <button class="card-button">分享</button>
+          <button class="card-button" @click="shareToMicroblog()" >分享</button>
         </el-card>
       </div>
     </div>
@@ -28,6 +28,27 @@
 
     export default {
         props: ["gz"],
+        methods:{
+            //分享到微博(可用)
+    shareToMicroblog() {
+      //自定义内容
+      const share = {
+        title: "分享",
+        image_url: ["111"],
+        share_url: "111"
+      };
+      //跳转地址
+      location.replace(
+        "https://service.weibo.com/share/share.php?url=" +
+          encodeURIComponent(share.share_url) +
+          "&title=" +
+          share.title +
+          "&pic=" +
+          share.image_url +
+          "&searchPic=true"
+      );
+    }
+        }
     }
 </script>
 

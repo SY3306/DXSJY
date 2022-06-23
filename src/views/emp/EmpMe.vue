@@ -230,6 +230,9 @@ export default {
 </script>
 
 <style  scoped>
+a{
+  color: aliceblue;
+}
 .btn1 {
   width: 100%;
   height: 42px;
