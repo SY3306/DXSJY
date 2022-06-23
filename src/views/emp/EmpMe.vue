@@ -214,7 +214,7 @@ export default {
     },
     send() {
       if (this.data.toudi == 0) {
-        this.$toast("还没有投递");
+        this.$toast("还没有投递简历哦！快去寻找心仪的工作吧");
         return;
       } else {
         this.$router.push("/empsend");
