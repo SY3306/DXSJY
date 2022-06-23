@@ -31,7 +31,7 @@
       <!-- 下方5个 -->
       <div class="top1">
         <div>
-          <span>{{ data.toudi.split(",").length }}</span>
+          <span>{{ data.toudi == 0 ? 0 : data.toudi.split(",").length }}</span>
           <router-link to="/empsend"><p>投递</p></router-link>
         </div>
         <div>
@@ -230,7 +230,7 @@ export default {
 </script>
 
 <style  scoped>
-a{
+a {
   color: aliceblue;
 }
 .btn1 {
