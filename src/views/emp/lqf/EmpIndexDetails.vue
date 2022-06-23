@@ -98,7 +98,15 @@
       <br />
       <!-- 投递 -->
       <div>
-        <button class="indexbtn" @click="send">立即投递</button>
+        <button
+          class="indexbtn"
+          @click="send"
+          :disabled="disabled"
+          v-if="!disabled"
+        >
+          立即投递
+        </button>
+        <span class="indexbtn1" v-else>已投递</span>
       </div>
     </div>
   </div>
@@ -115,10 +123,19 @@ export default {
     return {
       data: [],
       map: null,
+      disabled: false,
     };
   },
   mounted() {
     this.getData();
+    this.axios
+      .get(`/idexists?cid=${this.id}&uid=${this.$store.state.id}`)
+      .then((res) => {
+        console.log(res);
+        if (res.data.code == 500) {
+          this.disabled = true;
+        }
+      });
     // 地图
 
     AMapLoader.load({
@@ -145,13 +162,15 @@ export default {
       });
   },
   methods: {
-    send(){
-      let cid=this.id
-      let uid=this.$store.state.id
-      let params=`cid=${cid}&uid=${uid}`
-      this.axios.put('/updatesend',params).then(res=>{
-        console.log(res)
-      })
+    send() {
+      let cid = this.id;
+      let uid = this.$store.state.id;
+      let params = `cid=${cid}&uid=${uid}`;
+      this.axios.put("/updatesend", params).then((res) => {
+        console.log(res);
+        this.$toast("投递成功");
+        this.$router.push("/empindex/empindexcell");
+      });
     },
     onClickLeft() {
       this.$router.go(-1);
@@ -182,6 +201,19 @@ export default {
   border-radius: 7vw;
   border: none;
   background-color: rgb(71, 71, 232);
+  color: whitesmoke;
+  font-weight: 500;
+}
+.indexbtn1 {
+  display: inline-block;
+  user-select: none;
+  width: 90%;
+  text-align: center;
+  margin-left: 5vw;
+  padding: 3vw;
+  border-radius: 7vw;
+  border: none;
+  background-color: #666;
   color: whitesmoke;
   font-weight: 500;
 }
