@@ -560,12 +560,19 @@ server.post('/deletesend', (req, res) => {
   pool.query('select toudi from myemp where id=?', [req.body.uid], (err, result) => {
     if (err) throw err
     let arr = result[0].toudi.split(',')
-    arr.splice(arr.indexOf(req.body.cid), 1)
-    let n=arr.toString()
-    pool.query('update myemp set toudi=? where id=?', [n, req.body.uid], (err, result) => {
-      if (err) throw err
-      res.send({ code: 200, msg: '删除成功' })
-    })
+    if (arr.length == 1) {
+      pool.query('update myemp set toudi= 0 where id=?', [req.body.uid], (err, result) => {
+        if (err) throw err;
+        res.send({ code: 200, msg: '删除成功' })
+      })
+    } else {
+      arr.splice(arr.indexOf(req.body.cid), 1)
+      let n = arr.toString()
+      pool.query('update myemp set toudi=? where id=?', [n, req.body.uid], (err, result) => {
+        if (err) throw err
+        res.send({ code: 200, msg: '删除成功' })
+      })
+    }
   })
 })
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lqf-index">
-      <img class="img" src="../assets/sc.png"  @click="dele" />
+      <img class="img" src="../assets/sc.png" @click="dele" />
       <div class="lqf-index-span">
         <div>
           <router-link :to="`/empindexdetails/` + item.id">
@@ -52,7 +52,7 @@ export default {
   props: ["item"],
   data() {
     return {
-      code:''
+      code: "",
     };
   },
   computed: {
@@ -60,13 +60,16 @@ export default {
       return this.item.biaoqian.split("/");
     },
   },
-  methods:{
-    dele(){
-      this.axios.post('/deletesend',`uid=${this.$store.state.id}&cid=${this.item.id}`).then(res=>{
-        console.log(res)
-        this.code=res.data.code
-      })
-    }
+  methods: {
+    dele() {
+      this.axios
+        .post("/deletesend", `uid=${this.$store.state.id}&cid=${this.item.id}`)
+        .then((res) => {
+          console.log(res);
+          this.code = res.data.code;
+          this.$router.push("/empindex/empme");
+        });
+    },
   },
 };
 </script>
