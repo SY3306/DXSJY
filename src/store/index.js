@@ -6,14 +6,19 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     id: sessionStorage.getItem("id"),
-    empurl:sessionStorage.getItem('url'),
+    empurl: sessionStorage.getItem('url'),
     name: sessionStorage.getItem("name"),
     boss_name: sessionStorage.getItem("boss_name"),
-    zhiwei:sessionStorage.getItem('zhiwei'),
-    zqlength:sessionStorage.getItem('zqlength'),
+    zhiwei: sessionStorage.getItem('zhiwei'),
+    zqlength: sessionStorage.getItem('zqlength'),
+    toudi: sessionStorage.getItem('toudi')
   },
   getters: {},
   mutations: {
+    updatetoudi(state, toudi) {
+      state.toudi = toudi
+      sessionStorage.setItem('toudi', toudi)
+    },
     updateBossLoginState(state, boss_name) {
       state.boss_name = boss_name;
       sessionStorage.setItem("boss_name", boss_name);
@@ -26,17 +31,17 @@ export default new Vuex.Store({
       state.name = name;
       sessionStorage.setItem("name", name);
     },
-    updateurl(state,url){
-      state.empurl=url
-      sessionStorage.setItem('url',url)
+    updateurl(state, url) {
+      state.empurl = url
+      sessionStorage.setItem('url', url)
     },
-    updatezhiwei(state,zhiwei){
-      state.zhiwei=zhiwei
-      sessionStorage.setItem('zhiwei',zhiwei)
+    updatezhiwei(state, zhiwei) {
+      state.zhiwei = zhiwei
+      sessionStorage.setItem('zhiwei', zhiwei)
     },
-    updatezqlength(state,zqlength){
-      state.zqlength=zqlength
-      sessionStorage.setItem('zqlength',zqlength)
+    updatezqlength(state, zqlength) {
+      state.zqlength = zqlength
+      sessionStorage.setItem('zqlength', zqlength)
     },
 
   },

@@ -19,6 +19,7 @@
 
 <script>
 import sendindex from "@/components/sendindex.vue";
+import { mapState } from "vuex";
 
 export default {
   components: { sendindex },
@@ -26,6 +27,12 @@ export default {
     return {
       data: [],
     };
+  },
+  computed: {
+    ...mapState(["toudi"]),
+    a() {
+      return this.toudi;
+    },
   },
   methods: {
     onClickLeft() {
@@ -40,6 +47,18 @@ export default {
     });
   },
   watch: {
+    a() {
+      if (this.toudi == 0) {
+        this.$router.push("/empindex/empme");
+        this.$toast("投递已删完");
+      } else {
+        let url = "/sendlist?uid=" + this.$store.state.id;
+        this.axios.get(url).then((res) => {
+          console.log(res);
+          this.data = res.data.result;
+        });
+      }
+    },
     // data() {
     //   let url = "/sendlist?uid=" + this.$store.state.id;
     //   this.axios.get(url).then((res) => {

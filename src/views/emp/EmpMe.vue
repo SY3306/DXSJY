@@ -32,7 +32,7 @@
       <div class="top1">
         <div>
           <span>{{ data.toudi == 0 ? 0 : data.toudi.split(",").length }}</span>
-          <router-link to="/empsend"><p>投递</p></router-link>
+          <span @click="send"><p>投递</p></span>
         </div>
         <div>
           <span>{{ data.shoucang }}</span>
@@ -211,6 +211,14 @@ export default {
         console.log(res);
         this.data = res.data.result;
       });
+    },
+    send() {
+      if (this.data.toudi == 0) {
+        this.$toast("还没有投递");
+        return;
+      } else {
+        this.$router.push("/empsend");
+      }
     },
   },
   watch: {

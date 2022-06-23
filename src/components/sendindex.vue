@@ -66,8 +66,8 @@ export default {
         .post("/deletesend", `uid=${this.$store.state.id}&cid=${this.item.id}`)
         .then((res) => {
           console.log(res);
-          this.code = res.data.code;
-          this.$router.push("/empindex/empme");
+          // this.$router.push("/empindex/empme");
+          this.$store.commit("updatetoudi", res.data.length);
         });
     },
   },
