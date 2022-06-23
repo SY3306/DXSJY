@@ -31,7 +31,7 @@
       <!-- 下方5个 -->
       <div class="top1">
         <div>
-          <span>{{ data.toudi.split(",").length ?data.toudi.split(",").length :0 }}</span>
+          <span>{{ data.toudi == 0 ? 0 : data.toudi.split(",").length }}</span>
           <router-link to="/empsend"><p>投递</p></router-link>
         </div>
         <div>

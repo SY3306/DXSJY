@@ -39,20 +39,15 @@ export default {
       this.data = res.data.result;
     });
   },
-  watch:{
-    data(){
-      if(data==undefined){
-        this.$router.push('/empindex/empme')
-        this.$toast('已经没有可以删除的投递了')
-      }else{
-         let url = "/sendlist?uid=" + this.$store.state.id;
-    this.axios.get(url).then((res) => {
-      console.log(res);
-      this.data = res.data.result;
-    });}
-      
-    }
-  }
+  watch: {
+    // data() {
+    //   let url = "/sendlist?uid=" + this.$store.state.id;
+    //   this.axios.get(url).then((res) => {
+    //     console.log(res);
+    //     this.data = res.data.result;
+    //   });
+    // },
+  },
 };
 </script>
 
