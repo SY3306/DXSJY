@@ -230,7 +230,7 @@ export default {
 </script>
 
 <style  scoped>
-a{
+a {
   color: aliceblue;
 }
 .btn1 {
