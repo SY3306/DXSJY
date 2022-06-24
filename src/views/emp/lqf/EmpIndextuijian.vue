@@ -29,7 +29,9 @@
             </div>
           </template>
         </van-tab>
-        <van-tab title="最新"> 待完善！ </van-tab>
+        <van-tab title="最新">
+          <lqfindex v-for="x in data.result" :item="x" :key="x.id" />
+        </van-tab>
         <van-tab title="附近" to="/empindexfujin"> </van-tab>
       </van-tabs>
     </div>

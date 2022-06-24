@@ -15,10 +15,18 @@
     </van-search>
     <!--轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item>广告位招租</van-swipe-item>
-      <van-swipe-item>2</van-swipe-item>
-      <van-swipe-item>3</van-swipe-item>
-      <van-swipe-item>4</van-swipe-item>
+      <van-swipe-item
+        ><img src="../../../public/img/index/dn1.jpeg" alt="广告位招租"
+      /></van-swipe-item>
+      <van-swipe-item
+        ><img src="../../../public/img/index/dn2.jpg" alt="广告位招租"
+      /></van-swipe-item>
+      <van-swipe-item
+        ><img src="../../../public/img/index/dn3.jpg" alt="广告位招租"
+      /></van-swipe-item>
+      <van-swipe-item
+        ><img src="../../../public/img/index/dn4.jpg" alt="广告位招租"
+      /></van-swipe-item>
     </van-swipe>
     <!-- 这里的数据后续可以用接口直接拿 -->
     <!-- 整点卡片导航栏 -->
@@ -143,11 +151,13 @@ export default {
 </script>
 <style lang="scss" scoped></style>
 <style>
-.my-swipe .van-swipe-item {
-  color: #fff;
-  font-size: 20px;
+.my-swipe .van-swipe-item img {
+  /* color: #fff; */
+  /* font-size: 20px;
   line-height: 150px;
   text-align: center;
-  background-color: #39a9ed;
+  background-color: #39a9ed; */
+  width: 100vw;
+  height: 66vw;
 }
 </style>

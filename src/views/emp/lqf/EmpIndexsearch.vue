@@ -1,16 +1,25 @@
 <template>
   <div>
-    <div>
-      <router-link to="/empindex/empindexcell" slot="left">
-        <van-nav-bar left-arrow />
-      </router-link>
+    <div @click="good">
+      <van-nav-bar title="查询" left-text="返回" left-arrow>
+
+      </van-nav-bar>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    good() {
+      this.$router.go(-1);
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>

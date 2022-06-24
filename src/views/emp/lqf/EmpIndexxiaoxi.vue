@@ -147,9 +147,9 @@ img {
   background-color: white;
 }
 .indextu > img {
-  width: 10vw;
-  height: 6vh;
+  width: 3em;
+  height: 3em;
   border-radius: 50%;
-  margin: 0.8vw 3vw 0 3vw;
+  margin: 0 3vw 0 3vw;
 }
 </style>
