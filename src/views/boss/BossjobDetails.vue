@@ -98,9 +98,6 @@
       <br />
       <br />
       <!-- 投递 -->
-      <div>
-        <button class="indexbtn">立即投递</button>
-      </div>
     </div>
   </div>
 </template>

@@ -5,6 +5,7 @@
       <router-link to="/bossregister" slot="right">登录</router-link>
     </mt-header>
     <div class="kong"></div>
+    
     <mt-field
       v-model="boss_name"
       type="text"

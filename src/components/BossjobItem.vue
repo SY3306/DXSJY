@@ -1,5 +1,8 @@
 <template>
-  <div class="lqf-index">
+  <div
+    class="lqf-index"
+    @click="$router.push(`/bossjobdetails?id=${bossjobitem.id}`)"
+  >
     <div>
       <div class="lqf-index-span">
         <div>
@@ -21,15 +24,16 @@
       </div>
       <div>
         <!-- 这里应该使用boss完善的资料信息 -->
-        <span> 严于庭有限公司 </span>
+        <span> {{ bosscompany.name }} </span>
       </div>
       <div class="lqf-index-hr">
         <div>
           <img
+            class="indextupian"
             src="https://img0.baidu.com/it/u=2387177308,2370109332&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
             alt="HR头像"
           />
-          <span>HR·严先生 </span>
+          <span> {{ bosscompany.introduct }}</span>
           <!-- 这里应该使用boss完善的资料信息 -->
         </div>
         <!-- <div>
@@ -43,8 +47,8 @@
           />
         </div>
       </div>
-      <hr />
     </div>
+    <hr />
   </div>
 </template>
 
@@ -52,12 +56,28 @@
 import { Indicator } from "mint-ui";
 export default {
   props: ["bossjobitem"],
+  data() {
+    return {
+      bosscompany: [],
+    };
+  },
+  mounted() {
+    this.axios
+      .get(`/bosscompany?boss_name=${this.$store.state.boss_name}`)
+      .then((res) => {
+        console.log(res);
+        this.bosscompany = res.data.result[0];
+        // 完成后关闭该功能
+        Indicator.close();
+      });
+  },
   methods: {
     toAdd() {
       //   this.$router.push("/bossindex/me");
       console.log("跳转");
     },
     deleteBossjob(id) {
+      event.stopPropagation();
       return new Promise((resolve, reject) => {
         // 加载中组件
         Indicator.open("加载中...");
@@ -68,6 +88,7 @@ export default {
           // 完成后关闭该功能
           Indicator.close();
           location.reload();
+          return false;
         });
       });
     },
@@ -77,60 +98,49 @@ export default {
 
 <style lang="scss" scoped></style>
 <style scoped>
-/* .jobhead {
-  display: flex;
-  justify-content: space-between;
-} */
-/* .van-icon:before {
-  line-height: 63px;
-  margin: 0 30px;
-  font-size: 20px;
-  font-weight: bold;
-} */
-
+a {
+  color: black;
+}
 .lqf-index {
-  margin: 0 20px;
+  margin: 0.5em 0.5em;
+  padding: 0.5em;
+  background-color: whitesmoke;
 }
-.lqf-index > div > div {
-  margin: 10px 0;
+.lqf-index div {
+  padding: 0.2em 0;
 }
-
 .lqf-index-span {
   display: inline-block;
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
-  font-weight: 800;
-  overflow: hidden;
 }
-.lqf-index-span > div:last-child {
-  color: red;
-  font-weight: 600;
+.lqf-index-span > div:first-child {
+  font-size: 5vw;
+  font-weight: 530;
 }
 .lqf-index-ziti {
   font-size: 12px;
 }
+
 .lqf-index-ziti span {
   display: inline-block;
-  margin-right: 10px;
-  padding: 5px 10px;
-  background-color: rgba(228, 229, 243, 0.8);
+  margin: 0 2px;
+  padding: 3px 5px;
+  background-color: rgb(230, 236, 240);
 }
-
 .lqf-index-hr {
   display: inline-block;
   display: flex;
   justify-content: space-between;
 }
-.lqf-index-hr div img {
-  width: 30px;
-  height: 30px;
+.indextupian {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  margin-right: 0.6em;
+  margin-bottom: -0.4em;
 }
-.lqf-index-hr > div {
-  display: flex;
-  align-items: center;
-}
-.lqf-index-hr > div > span {
-  line-height: 30px;
+.indexsprice {
+  margin-top: 0.25em;
 }
 </style>
