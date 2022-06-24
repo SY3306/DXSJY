@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="bgc">
+    <div class="kong"></div>
     <van-nav-bar
-      title="用户登录"
+      fixed
+      title="企业登录"
       left-text="返回"
       right-text="新用户"
       left-arrow
@@ -18,6 +20,7 @@
         :maxlength="15"
         :rules="[{ validator, required: true, message: '请正确填写用户名' }]"
       />
+      <br />
       <van-field
         v-model="password"
         type="password"
@@ -26,11 +29,15 @@
         placeholder="请输入密码"
         :rules="[{ validator, required: true, message: '请正确填写密码' }]"
       />
-      <van-checkbox v-model="checked" icon-size="12px"
-        >我已阅读并同意<a href="">用户协议</a>、<a href=""
-          >登录政策</a
-        ></van-checkbox
-      >
+      <div class="checkbox">
+        <van-checkbox v-model="checked" icon-size="12px"
+          ><span
+            >我已阅读并同意<a href="">用户协议</a>、<a href=""
+              >登录政策</a
+            ></span
+          ></van-checkbox
+        >
+      </div>
       <div style="margin: 16px">
         <van-button round block type="info" native-type="submit"
           >提交</van-button
@@ -92,8 +99,32 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .van-checkbox {
   margin-left: 5vw;
+}
+.bgc {
+  height: 100vh;
+  background-image: url(../../assets/bossregister.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.van-checkbox__label {
+  margin-left: 10vw;
+  margin: 2vh;
+}
+.van-checkbox__label > span {
+  color: white;
+}
+.kong {
+  height: 30%;
+}
+h2,
+a {
+  color: aqua;
+}
+.checkbox {
+  margin: 2vh 0 2vh 10vw;
 }
 </style>

@@ -45,10 +45,11 @@ export default {
   watch: {
     a() {
       if (this.toudi == 0) {
+        this.$store.commit("updatetoudi", "a");
         this.$router.push("/empindex/empme");
         this.$toast("投递已删完");
       } else {
-        let url = "/sendlist?uid=" + this.$store.state.id;
+        let url = "/sendlist?uid=" + this.$store.state.id;      
         this.axios.get(url).then((res) => {
           console.log(res);
           this.data = res.data.result;

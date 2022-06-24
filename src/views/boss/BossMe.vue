@@ -215,6 +215,7 @@
         <van-icon name="arrow" />
       </div>
     </div>
+    <button class="btn1" @click="$router.push('/bosslogin')">退出登录</button>
     <van-row
       type="flex"
       justify="space-around"
@@ -369,5 +370,14 @@ export default {
   color: rgb(192, 151, 106);
   margin-top: 18px;
   margin-bottom: 14px;
+}
+.btn1 {
+  width: 100%;
+  height: 42px;
+  background-color: rgb(74 158 250 / 80%);
+  border-radius: 20px;
+  margin-top: 12px;
+  margin-bottom: 6px;
+  border: 0;
 }
 </style>
