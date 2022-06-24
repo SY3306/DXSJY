@@ -30,7 +30,7 @@
       :state="pwdState"
       @blur.native.capture="checkPwd"
     ></mt-field>
-    <van-checkbox v-model="checked"   
+    <van-checkbox v-model="checked"
       ><span>我已阅读同意招聘服务协议与隐私政策</span></van-checkbox
     >
     <!-- 按钮 -->
@@ -40,10 +40,9 @@
       size="large"
       color="linear-gradient(to right, #48D1CC, #4169e1)"
       @click.native.capture="getdata"
-      :disabled='!checked'
+      :disabled="!checked"
       >安全登录</van-button
     >
-
     <div v-if="data"></div>
   </div>
 </template>
@@ -62,7 +61,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["updateid", "updatename",'updateurl']),
+    ...mapMutations(["updateid", "updatename", "updateurl"]),
     checkName() {
       //用户名输入框焦点失去后执行
       console.log(this.name);
@@ -119,14 +118,16 @@ export default {
             this.data = res.data.results;
             this.updateid(this.data.id);
             this.updatename(this.data.empname);
-            this.updateurl(this.data.url)
+            this.updateurl(this.data.url);
             this.$router.push("/empindex");
           });
-        }else{
-          alert('用户不存在')
-          this.name=''
-          this.pwd=''
-          this.checked=false
+        } else {
+          alert("用户不存在");
+          this.name = "";
+          this.pwd = "";
+          this.checked = false;
+          this.nameState = "";
+          this.pwdState = "";
         }
       });
     },

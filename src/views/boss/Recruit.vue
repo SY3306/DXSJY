@@ -71,8 +71,7 @@
       v-model="introduce"
       autosize
       label="技能要求"
-      type="textarea"
-      maxlength="200"
+      type="text"
       placeholder="请输入职业技能需求"
       show-word-limit
     />
@@ -108,8 +107,7 @@ export default {
   methods: {
     bossjobfabu() {
       // 这里的教育和年龄 公司 岗位职责等   教育  年龄  工作年限 学历要求应该作为标签放在要求里，这里我暂时使用
-      let param = `jobname=${this.name}&salary=${this.salary}&age=${this.age}&workyear=${this.option2[0].text}&jobcontent=${this.jobcontent}&welfare=${this.welfare}&myaddress=${this.position}&work=${this.introduce}&education=${this.option[0].text}&num=${this.num}
-      `;
+      let param = `jobname=${this.name}&salary=${this.salary}&age=${this.age}&workyear=${this.option2[0].text}&jobcontent=${this.jobcontent}&welfare=${this.welfare}&myaddress=${this.position}&work=${this.introduce}&education=${this.option[0].text}&num=${this.num}&bossname=${this.boss_name}`;
       this.axios.post("/bossjobcard", param).then((res) => {
         console.log(res);
         if (res.data.code == 200) {
@@ -123,6 +121,7 @@ export default {
   },
   data() {
     return {
+      boss_name: this.$store.state.boss_name,
       jobcontent: "", //工作内容
       welfare: "", //薪资福利
       salary: "", //工资范围

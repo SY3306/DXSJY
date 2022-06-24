@@ -25,6 +25,10 @@
         <h4>任职要求：</h4>
         <span class="tixing" v-html="data.yaoqiu"></span>
       </div>
+      <div>
+        <h4>岗位职责：</h4>
+        <span class="tixing" v-html="data.zhizhe"></span>
+      </div>
       <!-- 职位福利 -->
       <div>
         <div><h4>职位福利</h4></div>
@@ -98,7 +102,7 @@
       <br />
       <!-- 投递 -->
       <div>
-        <button class="indexbtn" @click="send">立即投递</button>
+        <button class="indexbtn">立即投递</button>
       </div>
     </div>
   </div>
@@ -119,40 +123,9 @@ export default {
   },
   mounted() {
     this.getData();
-    // 地图
-
-    AMapLoader.load({
-      key: "7bfbe3ab215345f405c23b5eed760ca8", // 申请好的Web端开发者Key，首次调用 load 时必填
-      version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-      plugins: ["AMap.Scale", "AMap.Weather"], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-    })
-      .then((AMap) => {
-        this.map = new AMap.Map("container", {
-          //设置地图容器id
-          viewMode: "3D", //是否为3D地图模式
-          zoom: 11, //初始化地图级别
-          center: [this.data.jingdu, this.data.weidu], //初始化地图中心点位置
-        });
-        AMap.plugin("AMap.Weather", function () {
-          let weather = new AMap.Weather();
-          weather.getForecast("北京", function (status, result) {
-            console.log(status, result);
-          });
-        });
-      })
-      .catch((e) => {
-        // console.log(e);
-      });
+    this.ditu();
   },
   methods: {
-    send(){
-      let cid=this.id
-      let uid=this.$store.state.id
-      let params=`cid=${cid}&uid=${uid}`
-      this.axios.put('/updatesend',params).then(res=>{
-        console.log(res)
-      })
-    },
     onClickLeft() {
       this.$router.go(-1);
     },
@@ -163,6 +136,67 @@ export default {
         console.log(res);
         this.data = res.data.result[0];
       });
+    },
+    ditu() {
+      // 地图
+      AMapLoader.load({
+        key: "7bfbe3ab215345f405c23b5eed760ca8", // 申请好的Web端开发者Key，首次调用 load 时必填
+        version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+        plugins: [
+          "AMap.Scale",
+          "AMap.ToolBar",
+          "AMap.Scale",
+          "AMap.HawkEye",
+          "AMap.MapType",
+          "AMap.Geolocation",
+        ], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+      })
+        .then((AMap) => {
+          //地图实例
+          let map = new AMap.Map("container", {
+            resizeEnable: true, //自适应大小
+            zoom: 11, //初始化视窗
+            // pitch: 70, // 地图俯仰角度，有效范围 0 度- 83 度
+            //viewMode: "3D", // 地图模式
+          });
+          // AMap是高德地图的构造函数，这里.Map是创建地图，.Marker是创建坐标点
+          //信息窗口实例
+          var infoWindow = new AMap.InfoWindow({
+            offset: new AMap.Pixel(0, -30),
+          });
+          var marker = new AMap.Marker({
+            position: [121.473701, 31.230416], //不同标记点的经纬度
+            map: map,
+          });
+          //内部样式
+          marker.content = `<div style="width: 180px; height: 20px;"><router-link to="/empindex/empindexcell"> 工作地点：英雄广场</router-link>
+  </div>
+  
+        `;
+          marker.on("click", markerClick);
+          marker.emit("click", { target: marker }); //默认初始化不出现信息窗体,打开初始化就出现信息窗体
+          function markerClick(e) {
+            infoWindow.setContent(e.target.content);
+            infoWindow.open(map, e.target.getPosition());
+          }
+          map.setFitView();
+          this.map.addControl(new AMap.ToolBar({ position: "LT" }));
+
+          // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
+          this.map.addControl(new AMap.Scale());
+
+          // 在图面添加鹰眼控件，在地图右下角显示地图的缩略图
+          this.map.addControl(new AMap.HawkEye({ isOpen: false }));
+
+          // 在图面添加类别切换控件，实现默认图层与卫星图、实施交通图层之间切换的控制
+          this.map.addControl(new AMap.MapType());
+
+          // 在图面添加定位控件，用来获取和展示用户主机所在的经纬度位置
+          this.map.addControl(new AMap.Geolocation({ position: "RB" }));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };

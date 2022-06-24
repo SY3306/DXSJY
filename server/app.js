@@ -10,8 +10,6 @@ const bodyParser = require("body-parser");
 // 加载MD5模块
 const md5 = require("md5");
 
-const async = require('async')
-
 // 创建MySQL连接池
 const pool = mysql.createPool({
   host: "127.0.0.1", //MySQL服务器地址
@@ -315,6 +313,7 @@ server.post("/boss_login", (req, res) => {
   //获取用户名和密码信息
   let username = req.body.username;
   let password = req.body.password;
+  console.log("dsadsadsaa");
   // SQL语句
   let sql =
     "SELECT id,username FROM boss_user WHERE username=? AND password=MD5(?)";
@@ -334,13 +333,13 @@ server.post("/boss_login", (req, res) => {
 server.get("/bossjobcard", (req, res) => {
   //获取地址栏中的id参数
   // SQL查询
-  let id = req.query.id;
+  let bossname = req.query.boss_name;
 
   let sql =
-    "SELECT id,jobname,salary,age,jobcontent,welfare,myaddress,work,workyear,education,num FROM boss_user_job ORDER BY id desc";
+    "SELECT id,jobname,salary,age,jobcontent,welfare,myaddress,work,workyear,education,num FROM boss_user_job  WHERE bossname = ? ORDER BY id desc";
 
   // 执行SQL查询
-  pool.query(sql, (error, results) => {
+  pool.query(sql, [bossname], (error, results) => {
     if (error) throw error;
     // 返回数据到客户端
     res.send({ message: "ok", code: 200, result: results });
@@ -363,6 +362,7 @@ server.delete("/bossjobcard", (req, res) => {
 });
 //插入bossjob信息的接口
 server.post("/bossjobcard", (req, res) => {
+  let bossname = req.body.bossname;
   let jobname = req.body.jobname;
   let salary = req.body.salary;
   let age = req.body.age;
@@ -377,7 +377,7 @@ server.post("/bossjobcard", (req, res) => {
   let num = req.body.num;
   // 将用户的相关信息插入到数据表
   sql =
-    "INSERT boss_user_job(jobname,salary,age,jobcontent,welfare,myaddress,work,workyear,education,num) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    "INSERT boss_user_job(jobname,salary,age,jobcontent,welfare,myaddress,work,workyear,education,num,bossname) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
   pool.query(
     sql,
     [
@@ -391,12 +391,29 @@ server.post("/bossjobcard", (req, res) => {
       workyear,
       education,
       num,
+      bossname,
     ],
     (error, results) => {
       if (error) throw error;
       res.send({ message: "ok", code: 200 });
     }
   );
+});
+// 获取bossjob详细信息的接口
+server.get("/bossjobdetails", (req, res) => {
+  //获取地址栏中的id参数
+  // SQL查询
+  let id = req.query.id;
+
+  let sql =
+    "SELECT jobname,salary,age,jobcontent,welfare,myaddress,work,workyear,education,num FROM boss_user_job  WHERE id=?";
+
+  // 执行SQL查询
+  pool.query(sql, [id], (error, results) => {
+    if (error) throw error;
+    // 返回数据到客户端
+    res.send({ message: "ok", code: 200, result: results });
+  });
 });
 
 // 获取所有文章分类的接口
@@ -505,77 +522,42 @@ server.get("/zqselect", (req, res) => {
     }
   );
 });
-//检查cid是否重复
-server.get('/idexists', (req, res, next) => {
-  pool.query("select toudi from myemp where id=?", [req.query.uid], (err, result) => {
-    if (err) {
-      next(err)
-      return
-    };
-    let arr = result[0].toudi.split(',')
-    if (arr.indexOf(req.query.cid) == "-1") {
-      res.send({ code: 200, msg: "cid is not exist" })
-    } else {
-      res.send({ code: 500, msg: "cid is exist" })
+server.post("/bosscompany", (req, res) => {
+  let name = req.body.name;
+  let introduct = req.body.introduct;
+  let position = req.body.position;
+  // let mycompany = req.body.mycompany;
+  // let myhr = req.body.myhr;
+  let currentDate = req.body.currentDate;
+  let money = req.body.money;
+  let bossname = req.body.boss_name;
+  // 将用户的相关信息插入到数据表
+  sql =
+    "INSERT mycompany2 (name,introduct,position,currentDate,money,bossname) VALUES(?,?,?,?,?,?)";
+  pool.query(
+    sql,
+    [name, introduct, position, currentDate, money, bossname],
+    (error, results) => {
+      if (error) throw error;
+      res.send({ message: "ok", code: 200 });
     }
-    // arr.forEach(item => {
-    //   if (item == req.query.cid) {
-    //     res.send({ code: 500, msg: "cid is exist" })
-    //   } else {
-    //     res.send({ code: 200, msg: "cid is not exist" })
-    //   }
-    // })
-  })
-})
-//修改用户投递接口
-server.put('/updatesend', (req, res) => {
-  console.log(req.body);
-  pool.query("select toudi from myemp where id=?", [req.body.uid], (err, result) => {
-    if (err) throw err;
-    // console.log(result[0].toudi);
-    if (result[0].toudi == 0) {
-      let arr = []
-      arr.push(req.body.cid)
-      // console.log(arr);
-      let str = arr.toString()
-      pool.query("update myemp set toudi=? where id=?", [str, req.body.uid], (err, result) => {
-        if (err) throw err;
-        res.send({ code: 200, msg: "ok" })
-      })
-    } else {
-      let arr = result[0].toudi.split(',')
-      arr.push(req.body.cid)
-      let str = arr.toString()
-      pool.query("update myemp set toudi=? where id=?", [str, req.body.uid], (err, result) => {
-        if (err) throw err;
-        res.send({ code: 200, msg: "ok" })
-      })
-    }
-  })
-})
-//投递列表接口
-server.get('/sendlist', (req, res) => {
-  pool.query('select toudi from myemp where id=?', [req.query.uid], (err, result) => {
-    if (err) throw err;
-    let arr = result[0].toudi.split(',')
-    // console.log(arr)
-    async.map(arr, function (item, callback) {
-      let sql = `select * from myindex where id=${item}`
-      pool.query(sql, function (err, i) {
-        callback(null, i[0])
-      })
-    }, function (err, result) {
-      res.send({ code: 200, msg: "ok", result })
-    })
+  );
+});
+server.get("/bosscompany", (req, res) => {
+  //获取地址栏中的id参数
+  // SQL查询
+  let id = req.query.id;
+  let bossname = req.query.boss_name;
 
-  })
-})
-//错误处理中间件
-server.use((err, req, res, next) => {
-  if (err) {
-    console.log(err);
-  }
-  res.send({ code: 502, msg: '服务器端错误' })
+  let sql =
+    "SELECT name,introduct,position,currentDate,money FROM mycompany2  WHERE bossname=?";
+
+  // 执行SQL查询
+  pool.query(sql, [bossname], (error, results) => {
+    if (error) throw error;
+    // 返回数据到客户端
+    res.send({ message: "ok", code: 200, result: results });
+  });
 });
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {

@@ -2,7 +2,7 @@
   <div class="article">
     <!-- 顶部导航开始 -->
     <header>
-      <mt-header title="学前端，上学问">
+      <mt-header title="求职就，上求职宝！">
         <mt-button icon="back" slot="left" @click="$router.go(-1)"></mt-button>
       </mt-header>
     </header>

@@ -33,6 +33,17 @@ export default {
   },
   props: ["id"],
   computed:{
+
+  },
+  methods:{
+        a(){
+     this.active=this.$route.path.split('/').pop()
+    }
+  },
+  watch:{
+    $route(){
+       this.a()
+    }
   }
 };
 </script>

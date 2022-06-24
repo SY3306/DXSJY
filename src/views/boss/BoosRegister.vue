@@ -1,16 +1,10 @@
 <template>
   <div class="bossregister">
-    <img :src="imgSrc" width="100vw" height="100vh" alt="" />
-
-    <mt-header title="注册" class="reghead">
+    <mt-header fixed title="企业注册" class="reghead">
       <mt-button @click="clickLeft" icon="back" slot="left"></mt-button>
       <router-link to="/bossregister" slot="right">登录</router-link>
     </mt-header>
-    <!-- <van-image
-      width="100vw"
-      height="60vw"
-      src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.616pic.com%2Fbg_w1180%2F00%2F26%2F55%2FAgzVWooL1R.jpg&refer=http%3A%2F%2Fpic.616pic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1657428270&t=1fc740ca738df0ff06ab8b4267436961"
-    /> -->
+    <div class="kong"></div>
     <mt-field
       v-model="boss_name"
       type="text"
@@ -19,6 +13,7 @@
       :state="boss_nameState"
       @blur.native.capture="checkName"
     ></mt-field>
+    <br />
     <mt-field
       v-model="boss_phone"
       type="text"
@@ -28,6 +23,7 @@
       :attr="{ maxlength: 11 }"
       @blur.native.capture="checkPhone"
     ></mt-field>
+    <br />
     <mt-field
       v-model="boss_uname"
       type="text"
@@ -36,6 +32,7 @@
       :state="boss_unameState"
       @blur.native.capture="checkUname"
     ></mt-field>
+    <br />
     <!-- <mt-field
       v-model="boss_img"
       type="text"
@@ -54,7 +51,8 @@
       placeholder="请输入密码"
       :state="boss_pwdState"
       @blur.native.capture="checkPwd"
-    ></mt-field>
+    ></mt-field
+    ><br />
     <mt-field
       v-model="boss_repwd"
       type="password"
@@ -63,6 +61,7 @@
       :state="boss_repwdState"
       @blur.native.capture="checkRepwd"
     ></mt-field>
+    <br />
     <mt-button type="primary" size="large" @click="bossRegister"
       >注册</mt-button
     >
@@ -204,15 +203,15 @@ export default {
 .van-uploader__input {
   width: 100vw !important;
 }
-.reghead {
-  margin-top: 40vh;
+
+.bossregister {
+  height: 100vh;
+  background-image: url(../../assets/bossregister.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
-.bossregister > img {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%; /**宽高100%是为了图片铺满屏幕 */
-  z-index: -1;
-  position: absolute;
+.kong {
+  height: 25%;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div>
     <van-nav-bar
+      fixed
+      placeholder
       left-text="返回"
-      :title="`欢迎用户${this.$store.state.boss_name}`"
+      :title="`欢迎${this.$store.state.boss_name}`"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
@@ -13,7 +15,7 @@
     </van-nav-bar>
 
     <router-view />
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="active" fixed placeholder>
       <van-tabbar-item name="bosscarefully" icon="home-o">精选</van-tabbar-item>
       <van-tabbar-item name="jobs" icon="search">职位</van-tabbar-item>
       <van-tabbar-item name="message" icon="chat-o"> 沟通</van-tabbar-item>

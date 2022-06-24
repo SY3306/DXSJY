@@ -34,7 +34,10 @@ CREATE TABLE `boss_user` (
   `password` varchar(32) NOT NULL COMMENT '密码,MD5',
   `boss_img` varchar(50) NOT NULL DEFAULT 'unnamed.jpg' COMMENT '用户头像',
   `boss_phone` varchar(11) NOT NULL COMMENT '电话号码'
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 --
 -- 转存表中的数据 `boss_user`

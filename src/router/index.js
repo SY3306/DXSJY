@@ -6,21 +6,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/ceshi',
-    name: 'ceshi',
-    component: () => import('../views/emp/ceshi.vue'),
-  },
-  {
-    path: '/empsend',
-    name: 'empsend',
-    component: () => import('../views/emp/EmpSend.vue'),
-  },
-  {
-    path: '/empbj',
-    name: 'empbj',
-    component: () => import('../views/emp/EmpMebj.vue'),
-  },
-  {
     path: "/empzqinsert/:name",
     props: true,
     name: "empzqinsert",
@@ -92,14 +77,12 @@ const routes = [
         path: "zhiq",
         name: "zhiq",
         component: () => import("../views/emp/EmpzhiQ.vue"),
-
       },
       {
         // 用户个人信息
         path: "empme",
         name: "empme",
         component: () => import("../views/emp/EmpMe.vue"),
-
       },
       {
         path: "/empme_me",
@@ -125,7 +108,6 @@ const routes = [
         path: "empindexxiaoxi",
         name: "empindexxiaoxi",
         component: () => import("../views/emp/lqf/EmpIndexxiaoxi.vue"),
-
       },
     ],
   },
@@ -160,6 +142,17 @@ const routes = [
     path: "/bossregister",
     name: "bossregister",
     component: () => import("../views/boss/BoosRegister.vue"),
+  },
+  //地图
+  {
+    path: '/empmap',
+    name: 'EmpMap',
+    component: () => import('../views/emp/lqf/EmpMap.vue'),
+  },
+  {
+    path: '/empindexsearch',
+    name: 'empindexsearch',
+    component: () => import('../views/emp/lqf/EmpIndexsearch.vue'),
   },
   {
     // 招聘者主页
@@ -214,6 +207,12 @@ const routes = [
     component: () => import("../views/boss/BossArticle.vue"),
   },
   {
+    // 子路由地图组件
+    path: "/bossjobdetails",
+    name: "bossjobdetails",
+    component: () => import("../views/boss/BossjobDetails.vue"),
+  },
+  {
     // 切换身份
     path: "/bosschange",
     name: "bosschange",
@@ -226,7 +225,18 @@ const routes = [
     name: "bosscompany",
     component: () => import("../views/boss/BossCompany.vue"),
   },
-
+  //练习登录
+  {
+    path: '/lqflogin',
+    name: 'LqfLogin',
+    component: () => import('../views/emp/lqf/LqfLogin.vue'),
+  },
+  //练习注册
+  {
+    path: '/lqfregister',
+    name: 'lqfregister',
+    component: () => import('../views/emp/lqf/Lqfregister.vue'),
+  },
   // {
   //   // 职位
   //   path: "/bossjobs",

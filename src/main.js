@@ -19,7 +19,6 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 import Chat from 'vue-beautiful-chat'
-
 Vue.use(Chat)
 Vue.use(ElementUI);
 //如果基础路径都相同 可以在axios使用前配置基础路径。这样后续所有引入axios的页面里导入网址都会自动拼接上前半截不用受到输入
