@@ -2,6 +2,7 @@
   <div>
     <div class="lqf-index">
       <img class="img" src="../assets/sc.png" @click="dele" />
+      <button  @click="dele">删除</button>
       <div class="lqf-index-span">
         <div>
           <router-link :to="`/empindexdetails/` + item.id">
