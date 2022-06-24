@@ -10,6 +10,7 @@
     <div class="kong"></div>
     <!-- 表单 -->
     <mt-field
+    class="empinput"
       type="text"
       lable="用户名"
       placeholder="请输入用户名"
@@ -17,8 +18,9 @@
       :state="nameState"
       @blur.native.capture="checkName"
     ></mt-field>
-
+    
     <mt-field
+    class="empinput"
       v-model="phone"
       type="text"
       lable="手机号"
@@ -29,6 +31,7 @@
 
     <!-- 地区选择  这个可以放在简历界面？-->
     <van-field
+    class="empinput"
       readonly
       clickable
       name="area"
@@ -46,6 +49,7 @@
     </van-popup>
 
     <mt-field
+    class="empinput"
       v-model="pwd"
       type="password"
       lable="密码"
@@ -54,6 +58,7 @@
       @blur.native.capture="checkPwd"
     ></mt-field>
     <mt-field
+    class="empinput"
       v-model="repwd"
       type="password"
       lable="确认密码"
@@ -175,6 +180,10 @@ export default {
 </script>
 
 <style  scoped>
+.empinput {
+ margin: 0.7rem 0;
+ opacity: 0.8;
+}
 .bgc {
   height: 100vh;
   background-image: url(../../assets/rejist.jpeg);
@@ -183,7 +192,7 @@ export default {
   background-size: cover;
 }
 .kong {
-  height: 18%;
+  height: 10%;
 }
 .van-cell {
   font-size: 17px !important;

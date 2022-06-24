@@ -14,6 +14,7 @@
     <div class="kong"></div>
     <!-- 表单 -->
     <mt-field
+    class="empinput"
       type="text"
       lable="用户名"
       placeholder="请输入用户名"
@@ -23,6 +24,7 @@
     ></mt-field>
     <br />
     <mt-field
+    class="empinput"
       v-model="pwd"
       type="password"
       lable="密码"
@@ -134,6 +136,9 @@ export default {
 };
 </script>
 <style scoped>
+.empinput {
+ opacity: 0.8;
+}
 .bgc {
   height: 100vh;
   background-image: url(../../assets/login.jpeg);
