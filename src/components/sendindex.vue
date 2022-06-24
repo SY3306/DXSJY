@@ -1,8 +1,10 @@
 <template>
   <div>
     <div class="lqf-index">
-      <img class="img" src="../assets/sc.png" @click="dele" />
-      <button  @click="dele">删除</button>
+      <!-- <img class="img" src="../assets/sc.png" @click="dele" /> -->
+      <button class="btn"  @click="dele">
+        <van-icon name="cross" />
+      </button>
       <div class="lqf-index-span">
         <div>
           <router-link :to="`/empindexdetails/` + item.id">
@@ -80,8 +82,8 @@ export default {
 .lqf-index {
   position: relative;
 }
-.img {
-  width: 20px;
+.btn {
+  width: 50px;
   position: absolute;
   right: 2px;
   top: 2px;
@@ -100,6 +102,7 @@ a {
 .lqf-index-span {
   display: inline-block;
   display: flex;
+  margin-top: 12px;
   justify-content: space-between;
 }
 .lqf-index-span > div:first-child {

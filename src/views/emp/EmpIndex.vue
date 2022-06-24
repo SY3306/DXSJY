@@ -37,8 +37,6 @@ export default {
 };
 </script>
 <style scoped>
-.itemindex{
-  background-color: rgb(241, 242, 245);
-}
+
 </style>
 

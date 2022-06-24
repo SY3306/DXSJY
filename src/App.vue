@@ -10,4 +10,9 @@ export default {};
 </script>
 
 
-<style lang="scss" scoped></style>
+<style>
+*{
+  font-family: "微软雅黑";
+  
+}
+</style>

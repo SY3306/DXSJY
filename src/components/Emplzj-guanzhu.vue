@@ -53,9 +53,13 @@
 </script>
 
 <style  scoped>
+.bigdiv{
+  padding: 0 0.3rem;
+  border-radius: 10%;
+}
 .el-card{
     margin-bottom:5px;
-    background-color: azure;
+    background-color: white;
 }
 .clearfix:before,
 .clearfix:after {

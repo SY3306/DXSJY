@@ -17,7 +17,8 @@
           </div>
           </div>
           
-          <el-button class="card-button1" type="text">+关注</el-button>
+          <el-button class="card-button1" v-if="guanzhu"  @click="a" type="text">+关注</el-button>
+          <el-button class="card-button2" v-else type="text" @click="a">已关注</el-button>
         </div>
         <div class="text item" style="font-size: 14px">
           {{ wzc.content }}
@@ -35,10 +36,22 @@
 import { mapMutations, mapState } from 'vuex';
 export default {
   props: ["wzc"],
+  data() {
+    return {
+      guanzhu: true,
+    }
+  },
   computed:{
     ...mapState(['name'])
   },
   methods:{
+    a(){
+      if(this.guanzhu==true){
+        this.guanzhu=false
+      }else{
+        this.guanzhu=true
+      }
+    },
     ...mapMutations(['updatezqlength']),
     delete1(){
       this.axios.post('/empdelete',`id=${this.wzc.id}`).then(res=>{
@@ -73,6 +86,10 @@ export default {
 </script>
 
 <style  scoped>
+.bigdiv{
+  padding: 0 0.3rem;
+  border-radius: 10%;
+}
 .btn{
   font-size: 13px;
   margin-left: 187px;
@@ -82,7 +99,7 @@ p{
 }
 .el-card {
   margin-bottom: 5px;
-  background-color: azure;
+  background-color: white;
 }
 
 .clearfix {
@@ -101,12 +118,21 @@ justify-content: space-between;
   font-size: 12px;
 }
 .card-button1 {
-  background-color: #b3d2f1;
-  border-radius: 5px;
-  width: 55px;
-  /* padding: 5px 0; */
-  /* height: 20px; */
-  /* line-height: 20px; */
+  width:3.8rem;
+   height: 1.6rem;
+ line-height: 1.6rem;
+ margin-top: 0.5rem;
+ padding: 0 0.5rem;
+ color: whitesmoke;
+ background-color: rgb(241, 147, 79);
+}
+.card-button2{
+    height: 1.6rem;
+ line-height: 1.6rem;
+ margin-top: 0.5rem;
+ padding: 0 0.5rem;
+ color: whitesmoke;
+    background-color: #666;
 }
 .card-button {
   padding: 0px 3px;
